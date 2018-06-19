@@ -53,12 +53,8 @@
       "defaultValue": "lb",
       "type": "string"
     },
-    "scriptURL": {
-      "defaultValue": "https://raw.githubusercontent.com/araffe/vdc-networking-lab/master/DemoAppConfig.sh",
-      "type": "string"
-    },
-    "scriptCommand": {
-      "defaultValue": "sh DemoAppConfig.sh",
+    "scriptName": {
+      "defaultValue": "DemoAppConfig.sh",
       "type": "string"
     }
   },
@@ -240,10 +236,10 @@
         "typeHandlerVersion": "2.0",
         "autoUpgradeMinorVersion": true,
         "settings": {
-          "fileUris": [
-            "[parameters('scriptURL')]"
-          ],
-          "commandToExecute": "[parameters('scriptCommand')]"
+            "fileUris": [
+                "[uri(deployment().properties.templateLink.uri, parameters('scriptName'))]"
+            ],
+            "commandToExecute": "[concat('sh ', parameters('scriptName'))]"
         }
       },
       "dependsOn": [
